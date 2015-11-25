@@ -1,0 +1,8 @@
+excepciones:
+        Excep:
+            mensaje: adsda
+            descripcion: dasdaa
+        Excep2:
+             mensaje: adsda
+             descripcion: dasdaa
+             show_in_prod: true

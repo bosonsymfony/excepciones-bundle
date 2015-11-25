@@ -1,0 +1,14 @@
+{% extends 'ExcepcionesBundle::layout_error.html.twig' %}
+
+{% block body %}
+    <div style="text-align: center">
+        <h1 >{{ 'mensajes.titleError' | trans }}: <strong>"{{ status_code }} {{ status_text }}"</strong></h1>
+    </div>
+    <br>
+    <br>
+    <div class="block">
+        <p>
+        {{ 'mensajes.400' | trans }}
+        </p>
+    </div>
+{% endblock %}

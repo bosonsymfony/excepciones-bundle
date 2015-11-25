@@ -1,0 +1,35 @@
+{% extends 'ExcepcionesBundle::layout_error.html.twig' %}
+{% set adminEmail = admin_contact %}
+{% block body %}
+    <div style="text-align: center">
+        <h1>{{ 'mensajes.titleError'|trans }}: <strong>"{{ status_code }} {{ status_text }}"</strong></h1>
+        <br>
+        <br>
+    </div>
+    <div class="block">
+        {% if show_in_prod %}
+            <h1>
+                {{ exception.message }}
+            </h1>
+        {% elseif exception.class ends with 'DBALException' %}
+
+            <p>
+                {{ 'mensajes.500DatabaseError' | trans }}
+            </p>
+            {% if adminEmail  %}
+                <p>
+                    {{ 'mensajes.contactEmail' | trans }} : {{ adminEmail }}
+                </p>
+            {% endif %}
+        {% else %}
+            <p>
+                {{ 'mensajes.500' | trans }}
+            </p>
+            {% if adminEmail  %}
+                <p>
+                    {{ 'mensajes.contactEmail' | trans }} : {{ adminEmail }}
+                </p>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}

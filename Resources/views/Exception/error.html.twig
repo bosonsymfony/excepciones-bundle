@@ -1,0 +1,25 @@
+{% extends 'ExcepcionesBundle::layout_error.html.twig' %}
+{% set adminEmail = admin_contact %}
+{% block body %}
+    <div style="text-align: center">
+        <h1>Ha ocurrido un error de tipo <strong>"{{ status_code }} {{ status_text }}"</strong></h1>
+        <br>
+        <br>
+    </div>
+    <div class="block">
+        {% if excepction.show_in_prod %}
+            <h1>
+                {{ exception.show_in_prod }}
+            </h1>
+        {% else %}
+            <p>
+                {{ 'mensajes.restErrors' | trans }}
+            </p>
+            {% if adminEmail  %}
+                <p>
+                    {{ 'mensajes.contactEmail' | trans }} : {{ adminEmail }}
+                </p>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}

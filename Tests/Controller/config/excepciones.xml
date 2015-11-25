@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<excepciones>
+    <E605>
+        <mensaje>
+            excepciones.E605.mensaje
+        </mensaje>
+        <descripcion>
+            Ocurrió un error interno del sistema. Por favor contacte
+            al administrador.
+        </descripcion>
+    </E605>
+    <NODEFINED>
+        <mensaje>
+            Excepción disparada por el sistema y no definida en la
+            configuración de Excepciónes del sistema. Por favor
+            pónganse en contacto con el equipo de desarrollo.
+        </mensaje>
+        <descripcion>
+            Ocurrió un error interno del sistema. Por favor contacte
+            al administrador.
+        </descripcion>
+    </NODEFINED>
+</excepciones>

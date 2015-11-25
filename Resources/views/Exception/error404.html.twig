@@ -1,0 +1,12 @@
+{% extends 'ExcepcionesBundle::layout_error.html.twig' %}
+
+{% block body %}
+    <div style="text-align: center">
+        <h1 >Ha ocurrido un error de tipo <strong>"{{ status_code }} {{ status_text }}"</strong></h1>
+    </div>
+    <br>
+    <br>
+    <div class="block">
+        <p style="text-align: center">La url solicitada no existe. Debes revisar si has escrito correctamente la dirección.</p>
+    </div>
+{% endblock %}

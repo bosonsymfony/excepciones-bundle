@@ -1,0 +1,3 @@
+excepciones:
+    E605:
+        mensaje: Hola esto esto es una excepción con translator
