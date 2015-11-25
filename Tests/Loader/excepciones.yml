@@ -1,0 +1,7 @@
+excepciones:
+        CE01:
+            mensaje: 'Ha ocurrido una excepción al inicializar la cache.'
+            descripcion: 'En parameters.yml no está configurado la extensión de la cache.'
+        CE02:
+            mensaje: excepciones.CE02.mensaje
+            descripcion: excepciones.CE02.descripcion

@@ -1,0 +1,7 @@
+mensajes:
+    400: The server can't understand the request because the sintax is wrong. You must verify the data and try again. Thanks.
+    titleError: The server returned an
+    500: Sorry, an internal error was occurred. contact with the administrator  to get more information.
+    500DatabaseError: Sorry, an internal error was occurred with the database connection.
+    contactEmail: Contact email
+    restErrors: Sorry, an internal error was occurred. Contact with the administrator  to get more information.

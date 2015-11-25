@@ -1,0 +1,7 @@
+mensajes:
+    titleError: Ha ocurrido un error de tipo
+    400: El servidor no es capaz de entender la petición realizada porque su sintaxis no es correcta. Debe corregir sus datos he intentarlo otra vez. Gracias.
+    500: Lo sentimos, hemos tenido un error interno. contacte con el administrador para mayor información.
+    500DatabaseError: Lo sentimos, hemos tenido un error interno con la conexión a la base de datos, disculpe las molestionas.
+    contactEmail: Dirección de contacto
+    restErrors: Lo sentimos, hemos tenido un error interno. contacte con el administrador para mayor información.

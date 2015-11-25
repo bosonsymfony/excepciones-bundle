@@ -1,0 +1,3 @@
+excepciones_home:
+    path:     /getAll
+    defaults: { _controller: ExcepcionesBundle:View:index }
