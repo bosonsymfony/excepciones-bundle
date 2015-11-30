@@ -215,3 +215,4 @@ Contribuidores
 
 Licencia
 --------
+MIT
