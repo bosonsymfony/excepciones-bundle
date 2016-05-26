@@ -59,7 +59,7 @@ angular.module('app')
 
                         excepcionesAddSvc.InsertException(data)
                             .success(function (response) {
-                                toastr.success("La excepción ha sido modificada satisfactoriamente");
+                                toastr.success("La excepción ha sido insertada satisfactoriamente");
                                 //location.reload();
                                 $scope.codigo = null;
                                 $scope.bundle = null;
