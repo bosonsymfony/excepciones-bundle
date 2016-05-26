@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xsd:schema xmlns="http://www.bonson.cu/symfony/schema/dic/services"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     targetNamespace="http://www.bonson.cu/symfony/schema/dic/services"
+     elementFormDefault="qualified">
+
+  <xsd:annotation>
+    <xsd:documentation><![CDATA[
+      Symfony XML Services Schema, version 1.0
+      Authors: Fabien Potencier
+
+      This defines a way to describe PHP objects (services) and their
+      dependencies.
+    ]]></xsd:documentation>
+  </xsd:annotation>
+
+  <xsd:element name="container" type="container" />
+  <xsd:complexType name="container">
+    <xsd:annotation>
+      <xsd:documentation><![CDATA[
+        The root element of a service file.
+      ]]></xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      <xsd:element name="excepciones" type="excepciones" minOccurs="0" maxOccurs="1" />
+      <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="excepciones">
+    <xsd:annotation>
+      <xsd:documentation><![CDATA[
+        Enclosing element for the definition of all services
+      ]]></xsd:documentation>
+    </xsd:annotation>
+    <xsd:choice minOccurs="1" maxOccurs="unbounded">
+      <xsd:element name="codigo" type="codigo" />
+    </xsd:choice>
+  </xsd:complexType>
+
+  <xsd:complexType name="codigo">
+    <xsd:choice maxOccurs="unbounded">
+      <xsd:element name="mensaje" type="xsd:string" minOccurs="1" maxOccurs="1" />
+      <xsd:element name="descripcion" type="xsd:string"  minOccurs="1" maxOccurs="1"  />
+    </xsd:choice>
+    <xsd:attribute name="id" type="xsd:string" />
+  </xsd:complexType>
+</xsd:schema>

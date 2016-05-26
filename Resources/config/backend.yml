@@ -1,0 +1,16 @@
+config_route: excepciones_app_config
+menu:
+    excepciones:
+        title: Excepciones
+        type: toggle
+        icon: mdi mdi-view-quilt
+        includes: excepciones
+        children:
+            add:
+                title: Adicionar
+                type: link
+                state: excepciones.add
+            gestion:
+                title: Editar y Eliminar
+                type: link
+                state: excepciones.gest

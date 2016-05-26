@@ -1,0 +1,35 @@
+parameters:
+    kernel.excepciones.listener.class: UCI\Boson\ExcepcionesBundle\EventListener\ExceptionListener
+    excepcionesExtensionBundle.extension.class: UCI\Boson\ExcepcionesBundle\DependencyInjection\ExcepcionesExtension
+    uci.excepciones.class: UCI\Boson\ExcepcionesBundle\Exception\Excepcion
+#Overriding the twig.controller.class
+    twig.controller.exception.class: UCI\Boson\ExcepcionesBundle\Controller\ExceptionController
+
+services:
+    kernel.excepciones.listener:
+        class: %kernel.excepciones.listener.class%
+        arguments: ["@service_container","%kernel.logs_dir%/"]
+        tags:
+            - {name: kernel.event_listener, event: kernel.exception, method: onKernelException}
+
+    localException:
+            class: %uci.excepciones.class%
+            arguments: ["@service_container"]
+
+    localexception:
+        class: %uci.excepciones.class%
+        arguments: ["@service_container"]
+
+    exception:
+        class: %uci.excepciones.class%
+        arguments: ["@service_container"]
+
+    excepciones.twig.parameter_admin_expose_extension:
+        class: UCI\Boson\ExcepcionesBundle\Twig\ParameterAdminExposeExtension
+        arguments: [%excepciones%]
+        tags:
+            - { name: twig.extension }
+
+    twig.controller.exception:
+        class: %twig.controller.exception.class%
+        arguments: [@twig,%kernel.debug%,@service_container]

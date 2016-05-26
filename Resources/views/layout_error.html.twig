@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="{{ _charset }}" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{{ asset('bundles/framework/css/structure.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/framework/css/body.css') }}" rel="stylesheet" />
+    {% block head %}{% endblock %}
+    <style>
+        .sf-reset .block{
+            background-color: #BECBFF;
+            !important;
+        }
+        .sf-reset p{
+            font-size: 18px;
+            !important;
+        }
+    </style>
+</head>
+<body>
+<div id="content">
+    <div class="header clear-fix">
+        <div class="header-logo">
+            <img src="{{ asset('logoBosonThumb.png') }}"  alt="Symfony" />
+        </div>
+    </div>
+
+    <div class="sf-reset">
+        {% block body %}{% endblock %}
+    </div>
+</div>
+</body>
+</html>

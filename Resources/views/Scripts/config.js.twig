@@ -1,0 +1,131 @@
+/**
+ * Created by killer on 19/01/16.
+ */
+
+angular.module('app')
+        .run(
+                ['$rootScope',
+                    function ($rootScope) {
+
+                    }
+                ]
+        )
+        .config(
+                ['$stateProvider',
+                    function ($stateProvider) {
+
+                        //routes here
+                        $stateProvider
+                                .state('excepciones', {
+                                    abstract: true,
+                                    url: '/excepciones',
+                                    views: {
+                                        '': {
+                                            templateUrl: '{{ path('backend_layout')|raw }}'
+                                        },
+                                        'aside': {
+                                            templateUrl: '{{ path('backend_aside')|raw }}'
+                                        },
+                                        'content': {
+                                            templateUrl: '{{ path('backend_content')|raw }}'
+                                        }
+                                    }
+                                })
+                                .state('excepciones.gest', {
+                                    url: '/adminExcep',
+                                    templateUrl: '{{ asset('bundles/excepciones/adminApp/views/gestionarExcepcion.html')|raw }}',
+                                    controller: 'excepcionesGestionCtrl',
+                                    data: {
+                                        title: 'Editar/Eliminar Excepciones'
+                                    },
+                                    resolve: load(
+                                            [
+                                                {
+                                                    name: 'hljs',
+                                                    files: [
+                                                        '{{ asset('bundles/backend/lib/highlight/highlight.pack.js')|raw }}',
+                                                        '{{ asset('bundles/backend/lib/highlight/styles/androidstudio.css')|raw }}',
+                                                        '{{ asset('bundles/backend/node_modules/angular-highlightjs/build/angular-highlightjs.js')|raw }}'
+                                                    ]
+                                                },
+                                                {
+                                                    files: [
+                                                        '{{ asset('bundles/excepciones/adminApp/services/excepcionesGestionSvc.js')|raw }}',
+                                                        '{{ asset('bundles/excepciones/adminApp/filters/excepcionesHomeFilter.js')|raw }}',
+                                                        '{{ asset('bundles/excepciones/adminApp/directives/excepcionesHomeDirective.js')|raw }}',
+                                                        '{{ asset('bundles/excepciones/adminApp/controllers/excepcionesGestionCtrl.js')|raw }}'
+                                                    ]
+                                                }
+                                            ]
+                                    )
+                                })
+                                .state('excepciones.add', {
+                                    url: '/AdicionarExcep',
+                                    templateUrl: '{{ asset('bundles/excepciones/adminApp/views/adicionarExcepcion.html')|raw }}',
+                                    controller: 'excepcionesAddCtrl',
+                                    data: {
+                                        title: 'Adicionar Excepciones'
+                                    },
+                                    resolve: load(
+                                            [
+                                                {
+                                                    name: 'hljs',
+                                                    files: [
+                                                        '{{ asset('bundles/backend/lib/highlight/highlight.pack.js')|raw }}',
+                                                        '{{ asset('bundles/backend/lib/highlight/styles/androidstudio.css')|raw }}',
+                                                        '{{ asset('bundles/backend/node_modules/angular-highlightjs/build/angular-highlightjs.js')|raw }}'
+                                                    ]
+                                                },
+                                                {
+                                                    files: [
+                                                        '{{ asset('bundles/excepciones/adminApp/services/excepcionesAddSvc.js')|raw }}',
+                                                        '{{ asset('bundles/excepciones/adminApp/filters/excepcionesHomeFilter.js')|raw }}',
+                                                        '{{ asset('bundles/excepciones/adminApp/directives/excepcionesHomeDirective.js')|raw }}',
+                                                        '{{ asset('bundles/excepciones/adminApp/controllers/excepcionesAddCtrl.js')|raw }}'
+                                                    ]
+                                                }
+                                            ]
+                                    )
+                                })
+                                .state('excepciones.homepage', {
+                                    url: '/home',
+                                    templateUrl: '{{ asset('bundles/excepciones/adminApp/views/home.html')|raw }}',
+                                    controller: 'excepcionesHomeCtrl',
+                                    data: {
+                                        title: 'Homepage'
+                                    },
+                                    resolve: load(
+                                            [
+                                                {
+                                                    name: 'hljs',
+                                                    files: [
+                                                        '{{ asset('bundles/backend/lib/highlight/highlight.pack.js')|raw }}',
+                                                        '{{ asset('bundles/backend/lib/highlight/styles/androidstudio.css')|raw }}',
+                                                        '{{ asset('bundles/backend/node_modules/angular-highlightjs/build/angular-highlightjs.js')|raw }}'
+                                                    ]
+                                                },
+                                                {
+                                                    files: [
+                                                        '{{ asset('bundles/excepciones/adminApp/services/excepcionesHomeSvc.js')|raw }}',
+                                                        '{{ asset('bundles/excepciones/adminApp/filters/excepcionesHomeFilter.js')|raw }}',
+                                                        '{{ asset('bundles/excepciones/adminApp/directives/excepcionesHomeDirective.js')|raw }}',
+                                                        '{{ asset('bundles/excepciones/adminApp/controllers/excepcionesHomeCtrl.js')|raw }}'
+                                                    ]
+                                                }
+                                            ]
+                                    )
+                                });
+
+
+                        function load(src) {
+                            return {
+                                deps: ['$ocLazyLoad',
+                                    function ($ocLazyLoad) {
+                                        return $ocLazyLoad.load(src);
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ]
+        );

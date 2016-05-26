@@ -1,0 +1,8 @@
+excepciones_home:
+    path:     /getAll
+    defaults: { _controller: ExcepcionesBundle:View:index }
+
+excepciones_angular_app:
+    resource: "@ExcepcionesBundle/Controller/"
+    type:     annotation
+    prefix:   /angular_app
