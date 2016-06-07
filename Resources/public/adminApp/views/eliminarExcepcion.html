@@ -1,0 +1,28 @@
+<md-content flex layout-padding>
+    <br/>
+    <br/>
+
+    <div layout-gt-sm="row">
+        <md-input-container flex-gt-sm>
+            <label>Bundle *</label>
+            <md-select ng-model="bundle" ng-change="loadException()">
+                <md-option ng-repeat="b in info" ng-bind="b.NombreBundle"></md-option>
+            </md-select>
+        </md-input-container>
+
+        <md-input-container flex-gt-sm>
+            <label>Excepciones {{bundle}} *</label>
+            <md-select ng-model="excepcion" ng-disabled="!bundle" ng-change="loadTabs() && show_prod()">
+                <md-option ng-repeat="ex in exceptionsbundle" ng-bind="ex"></md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+    <br/>
+
+    <md-button
+            style="text-transform: none"
+            ng-click="eraseException()" ng-disabled="!bundle || !excepcion" class="md-raised md-primary">
+        Eliminar Excepción
+    </md-button>
+
+</md-content>
