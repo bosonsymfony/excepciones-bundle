@@ -32,11 +32,39 @@ angular.module('app')
                                     }
                                 })
                                 .state('excepciones.gest', {
-                                    url: '/adminExcep',
+                                    url: '/modifExcep',
                                     templateUrl: '{{ asset('bundles/excepciones/adminApp/views/gestionarExcepcion.html')|raw }}',
                                     controller: 'excepcionesGestionCtrl',
                                     data: {
-                                        title: 'Editar/Eliminar Excepciones'
+                                        title: 'Modificar Excepciones'
+                                    },
+                                    resolve: load(
+                                            [
+                                                {
+                                                    name: 'hljs',
+                                                    files: [
+                                                        '{{ asset('bundles/backend/lib/highlight/highlight.pack.js')|raw }}',
+                                                        '{{ asset('bundles/backend/lib/highlight/styles/androidstudio.css')|raw }}',
+                                                        '{{ asset('bundles/backend/node_modules/angular-highlightjs/build/angular-highlightjs.js')|raw }}'
+                                                    ]
+                                                },
+                                                {
+                                                    files: [
+                                                        '{{ asset('bundles/excepciones/adminApp/services/excepcionesGestionSvc.js')|raw }}',
+                                                        '{{ asset('bundles/excepciones/adminApp/filters/excepcionesHomeFilter.js')|raw }}',
+                                                        '{{ asset('bundles/excepciones/adminApp/directives/excepcionesHomeDirective.js')|raw }}',
+                                                        '{{ asset('bundles/excepciones/adminApp/controllers/excepcionesGestionCtrl.js')|raw }}'
+                                                    ]
+                                                }
+                                            ]
+                                    )
+                                })
+                                .state('excepciones.elim', {
+                                    url: '/eliminarExcep',
+                                    templateUrl: '{{ asset('bundles/excepciones/adminApp/views/eliminarExcepcion.html')|raw }}',
+                                    controller: 'excepcionesGestionCtrl',
+                                    data: {
+                                        title: 'Eliminar Excepciones'
                                     },
                                     resolve: load(
                                             [
