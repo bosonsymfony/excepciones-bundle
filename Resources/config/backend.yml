@@ -10,7 +10,11 @@ menu:
                 title: Adicionar
                 type: link
                 state: excepciones.add
-            gestion:
-                title: Editar y Eliminar
+            modif:
+                title: Modificar
                 type: link
                 state: excepciones.gest
+            elim:
+                title: Eliminar
+                type: link
+                state: excepciones.elim

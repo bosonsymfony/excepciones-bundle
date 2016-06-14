@@ -47,7 +47,7 @@ angular.module('app')
                 $scope.eraseException = function (ev) {
                     var confirm = $mdDialog.confirm()
                         .title('Confirmación de cambios')
-                        .textContent('¿Está seguro que eliminar la excepción?')
+                        .textContent('¿Está seguro que desea eliminar la excepción?')
                         .targetEvent(ev)
                         .ok('Si')
                         .cancel('No');
@@ -152,6 +152,7 @@ angular.module('app')
                     idiomasUsados.splice(index, 1);
                     tabcount = tabcount - 1;
                     $scope.tabcount = tabcount;
+                    $scope.wasmodified = true;
                 };
 
                 $scope.guardarCambios = function (ev) {
