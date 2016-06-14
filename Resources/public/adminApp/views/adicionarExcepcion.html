@@ -11,52 +11,53 @@
             </md-input-container>
 
             <md-input-container class="md-block" flex-gt-sm>
-                <label>Código de Excepción *</label>
+                <label>Código de excepción *</label>
                 <input ng-model="codigo" name="codExcep" ng-pattern="alphanumeric">
+
                 <div ng-messages="excepadd.codExcep.$error">
                     <div ng-message="pattern">{{alphanumericMess}}</div>
                 </div>
             </md-input-container>
 
-            <md-checkbox ng-model="showprod" aria-label="Mostrar en Producción">
-                Mostrar en Producción
+            <md-checkbox ng-model="showprod" aria-label="Mostrar en producción">
+                Mostrar en producción
             </md-checkbox>
 
         </div>
 
-        <div layout="row" layout-sm="column">
-            <div flex style="position: relative;">
-                <h2 class="md-subhead"
-                    style="position: absolute; bottom: 0; left: 0; margin: 0; font-weight: 500; text-transform: uppercase; line-height: 35px; white-space: nowrap;">
-                    Traducciones *:</h2>
+        <br/>
+
+        <p> Traducciones *:</p>
+
+        <md-input-container>
+            <label>Idioma</label>
+            <md-select ng-model="tIdioma" id="idioma">
+                <md-option ng-repeat="i in idiomas" ng-bind="i.label"></md-option>
+            </md-select>
+        </md-input-container>
+
+        <md-input-container>
+            <label for="mensaje">Mensaje</label>
+            <input type="text" id="mensaje" ng-model="tMensaje" name="mensaje" ng-pattern="alphanumeric">
+
+            <div ng-messages="excepadd.mensaje.$error">
+                <div ng-message="pattern">{{alphanumericMess}}</div>
             </div>
+        </md-input-container>
+        <md-input-container>
+            <label for="descripcion">Descripción</label>
+            <input type="text" id="descripcion" ng-model="tDescrip" name="descrip" ng-pattern="alphanumeric">
 
-            <md-input-container>
-                <label>Idioma</label>
-                <md-select ng-model="tIdioma" id="idioma">
-                    <md-option ng-repeat="i in idiomas" ng-bind="i.label"></md-option>
-                </md-select>
-            </md-input-container>
+            <div ng-messages="excepadd.descrip.$error">
+                <div ng-message="pattern">{{alphanumericMess}}</div>
+            </div>
+        </md-input-container>
 
-            <md-input-container>
-                <label for="mensaje">Mensaje</label>
-                <input type="text" id="mensaje" ng-model="tMensaje" name="mensaje" ng-pattern="alphanumeric">
-                <div ng-messages="excepadd.mensaje.$error">
-                    <div ng-message="pattern">{{alphanumericMess}}</div>
-                </div>
-            </md-input-container>
-            <md-input-container>
-                <label for="descripcion">Descripción</label>
-                <input type="text" id="descripcion" ng-model="tDescrip" name="descrip" ng-pattern="alphanumeric">
-                <div ng-messages="excepadd.descrip.$error">
-                    <div ng-message="pattern">{{alphanumericMess}}</div>
-                </div>
-            </md-input-container>
+        <md-button style="text-transform: none" class="add-tab md-primary md-raised"
+                   ng-click="addTab(tIdioma,tMensaje,tDescrip)"
+                   ng-disabled="!tIdioma || !tMensaje || !tDescrip" style="margin-right: 0;">Adicionar traducción
+        </md-button>
 
-            <md-button class="add-tab md-primary md-raised" ng-click="addTab(tIdioma,tMensaje,tDescrip)"
-                       ng-disabled="!tIdioma || !tMensaje || !tDescrip" style="margin-right: 0;">Adicionar Traducción
-            </md-button>
-        </div>
 
         <md-tabs md-border-bottom md-autoselect>
             <md-tab ng-repeat="tab in tabs"
@@ -73,16 +74,18 @@
                         <strong>Descripción: </strong> {{tab.descrip}} <br/>
                     </div>
                     <br/>
-                    <md-button class="md-primary md-raised" ng-click="removeTab( tab )" ng-disabled="tabs.length <= 0">
-                        Eliminar Traducción
+                    <md-button style="text-transform: none" class="md-primary md-raised" ng-click="removeTab( tab )"
+                               ng-disabled="tabs.length <= 0">
+                        Eliminar traducción
                     </md-button>
                 </div>
             </md-tab>
         </md-tabs>
 
-        <md-button ng-click="AdicionarClick()" class="md-raised md-primary"
+        <md-button style="text-transform: none"
+                   ng-click="AdicionarClick()" class="md-raised md-primary"
                    ng-disabled="tabcount < 1 || !bundle || !codigo">
-            Adicionar Excepción
+            Adicionar excepción
         </md-button>
 
     </form>
