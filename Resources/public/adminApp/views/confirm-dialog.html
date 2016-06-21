@@ -1,0 +1,20 @@
+<md-dialog>
+    <md-toolbar class="md-panel-toolbar">
+        <div class="md-toolbar-tools">
+            <h3>
+                Confirmación
+            </h3>
+            <span flex=""></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <i class="mdi mdi-close i-24"></i>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content class="md-dialog-content">
+        <p>¿Está seguro que desea aplicar los cambios?</p>
+    </md-dialog-content>
+    <div class="md-actions">
+        <md-button class="md-accent md-raised" ng-click="answer('Aceptar')">Aceptar</md-button>
+        <md-button class="md-primary" ng-click="answer('Cancelar')">Cancelar</md-button>
+    </div>
+</md-dialog>

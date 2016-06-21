@@ -18,7 +18,7 @@ angular.module('app')
                 $scope.numeric = '[0-9]+';
                 $scope.alphanumericMess = "Solo se permiten letras y números.";
                 $scope.sololetrasMess = "Solo se permiten letras.";
-                $scope.numericMess= "Solo se permiten números.";
+                $scope.numericMess = "Solo se permiten números.";
 
 
                 var tabs = [];
@@ -52,46 +52,50 @@ angular.module('app')
 
 
                 $scope.eraseException = function (ev) {
-                    var confirm = $mdDialog.confirm()
-                        .title('Confirmación de cambios')
-                        .textContent('¿Está seguro que desea eliminar la excepción?')
-                        .targetEvent(ev)
-                        .ok('Si')
-                        .cancel('No');
-                    $mdDialog.show(confirm).then(function () {
-                        //si se selecciona que si:
-                        excepcionesGestionSvc.deleteException($scope.bundle, $scope.excepcion)
-                            .success(function (response) {
-                                toastr.success(response);
-                                //borrando elementos sin recargar pagina
-                                $scope.codigo = null;
-                                $scope.bundle = null;
-                                $scope.excepcion = null;
-                                $scope.showprod = null;
-                                tabs = [];
-                                idiomasUsados = [];
-                                $scope.tabs = null;
-                                tabcount = 0;
-                                $scope.tabcount = 0;
-                                $scope.tMensaje = null;
-                                $scope.tDescrip = null;
-                                $scope.tIdioma = null;
-                                $scope.wasmodified = false;
-                                excepcionesGestionSvc.getBundlesWithExceptions()
-                                    .success(function (response) {
-                                        $scope.info = response;
-                                    })
-                                    .error(function (response) {
-                                        alert(response);
-                                    });
+                    $mdDialog.show({
+                        clickOutsideToClose: true,
+                        controller: 'DialogController',
+                        focusOnOpen: false,
+                        targetEvent: ev,
+                        locals: {
+                            entities: $scope.selected
+                        },
+                        templateUrl: $scope.$urlAssets + 'bundles/excepciones/adminApp/views/confirm-dialog.html'
+                    }).then(function (answer) {
+                        //console.log(answer);
+                        if (answer == 'Aceptar') {
+                            excepcionesGestionSvc.deleteException($scope.bundle, $scope.excepcion)
+                                .success(function (response) {
+                                    toastr.success(response);
+                                    //borrando elementos sin recargar pagina
+                                    $scope.codigo = null;
+                                    $scope.bundle = null;
+                                    $scope.excepcion = null;
+                                    $scope.showprod = null;
+                                    tabs = [];
+                                    idiomasUsados = [];
+                                    $scope.tabs = null;
+                                    tabcount = 0;
+                                    $scope.tabcount = 0;
+                                    $scope.tMensaje = null;
+                                    $scope.tDescrip = null;
+                                    $scope.tIdioma = null;
+                                    $scope.wasmodified = false;
+                                    excepcionesGestionSvc.getBundlesWithExceptions()
+                                        .success(function (response) {
+                                            $scope.info = response;
+                                        })
+                                        .error(function (response) {
+                                            alert(response);
+                                        });
 
-                            })
-                            .error(function (response) {
-                                toastr.error(response);
-                            });
-                    }, function () {
-                        //en caso contrario:
-                        //toastr.info("Se ha cancelado la operación.");
+                                })
+                                .error(function (response) {
+                                    toastr.error(response);
+                                });
+                        } else {
+                            // alert("Cancelar");
+                        }
                     });
                 };
 
@@ -167,57 +171,77 @@ angular.module('app')
                 };
 
                 $scope.guardarCambios = function (ev) {
-                    var confirm = $mdDialog.confirm()
-                        .title('Confirmación de cambios')
-                        .textContent('¿Está seguro que desea guardar los cambios?')
-                        .targetEvent(ev)
-                        .ok('Si')
-                        .cancel('No');
-                    $mdDialog.show(confirm).then(function () {
-                        //si se selecciona que si:
-                        var data = {
-                            uci_boson_excepcionesbundle_data: {
-                                codigo: $scope.codigo,
-                                codigoAnterior: $scope.excepcion,
-                                bundle: $scope.bundle,
-                                listTranslation: tabs,
-                                showprod: $scope.showprod,
-                                _token: $scope.token
-                            }
-                        };
-                        excepcionesGestionSvc.ModifyException(data)
-                            .success(function (response) {
-                                toastr.success(response);
-                                //borrando elementos sin recargar pagina
-                                $scope.codigo = null;
-                                $scope.bundle = null;
-                                $scope.excepcion = null;
-                                $scope.showprod = null;
-                                tabs = [];
-                                idiomasUsados = [];
-                                $scope.tabs = null;
-                                tabcount = 0;
-                                $scope.tabcount = 0;
-                                $scope.tMensaje = null;
-                                $scope.tDescrip = null;
-                                $scope.tIdioma = null;
-                                $scope.wasmodified = false;
-                                excepcionesGestionSvc.getBundlesWithExceptions()
-                                    .success(function (response) {
-                                        $scope.info = response;
-                                    })
-                                    .error(function (response) {
-                                        alert(response);
-                                    });
-                            })
-                            .error(function (response) {
-                                console.log(response);
-                                toastr.error(response);
-                            });
-                    }, function () {
-                        //en caso contrario:
-                        //toastr.info("Se ha cancelado la operación.");
+
+                    $mdDialog.show({
+                        clickOutsideToClose: true,
+                        controller: 'DialogController',
+                        focusOnOpen: false,
+                        targetEvent: ev,
+                        locals: {
+                            entities: $scope.selected
+                        },
+                        templateUrl: $scope.$urlAssets + 'bundles/excepciones/adminApp/views/confirm-dialog.html'
+                    }).then(function (answer) {
+                        //console.log(answer);
+                        if (answer == 'Aceptar') {
+                            var data = {
+                                uci_boson_excepcionesbundle_data: {
+                                    codigo: $scope.codigo,
+                                    codigoAnterior: $scope.excepcion,
+                                    bundle: $scope.bundle,
+                                    listTranslation: tabs,
+                                    showprod: $scope.showprod,
+                                    _token: $scope.token
+                                }
+                            };
+                            excepcionesGestionSvc.ModifyException(data)
+                                .success(function (response) {
+                                    toastr.success(response);
+                                    //borrando elementos sin recargar pagina
+                                    $scope.codigo = null;
+                                    $scope.bundle = null;
+                                    $scope.excepcion = null;
+                                    $scope.showprod = null;
+                                    tabs = [];
+                                    idiomasUsados = [];
+                                    $scope.tabs = null;
+                                    tabcount = 0;
+                                    $scope.tabcount = 0;
+                                    $scope.tMensaje = null;
+                                    $scope.tDescrip = null;
+                                    $scope.tIdioma = null;
+                                    $scope.wasmodified = false;
+                                    excepcionesGestionSvc.getBundlesWithExceptions()
+                                        .success(function (response) {
+                                            $scope.info = response;
+                                        })
+                                        .error(function (response) {
+                                            alert(response);
+                                        });
+                                })
+                                .error(function (response) {
+                                    console.log(response);
+                                    toastr.error(response);
+                                });
+                        } else {
+                            // alert("Cancelar");
+                        }
                     });
+                };
+            }
+        ]
+    )
+    .controller('DialogController',
+        ['$scope', 'excepcionesGestionSvc', 'toastr', '$mdDialog',
+            function ($scope, excepcionesGestionSvc, toastr, $mdDialog) {
+                $scope.hide = function () {
+                    $mdDialog.hide();
+                };
+                $scope.cancel = function () {
+                    $mdDialog.cancel();
+                };
+                $scope.answer = function (answer) {
+                    $mdDialog.hide(answer);
                 };
 
             }

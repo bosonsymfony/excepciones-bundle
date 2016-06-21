@@ -45,52 +45,53 @@ angular.module('app')
                     });
 
                 $scope.AdicionarClick = function (ev) {
+                    $mdDialog.show({
+                        clickOutsideToClose: true,
+                        controller: 'DialogController',
+                        focusOnOpen: false,
+                        targetEvent: ev,
+                        locals: {
+                            entities: $scope.selected
+                        },
+                        templateUrl: $scope.$urlAssets + 'bundles/excepciones/adminApp/views/confirm-dialog.html'
+                    }).then(function (answer) {
+                        //console.log(answer);
+                        if (answer == 'Aceptar') {
+                            var data = {
+                                uci_boson_excepcionesbundle_data: {
+                                    codigo: $scope.codigo,
+                                    codigoAnterior: null,
+                                    bundle: $scope.bundle,
+                                    listTranslation: tabs,
+                                    showprod: $scope.showprod,
+                                    _token: $scope.token
+                                }
+                            };
 
-                    var confirm = $mdDialog.confirm()
-                        .title('Confirmación de cambios')
-                        .textContent('¿Está seguro que desea adicionar una nueva excepción?')
-                        .targetEvent(ev)
-                        .ok('Si')
-                        .cancel('No');
-                    $mdDialog.show(confirm).then(function () {
-                        //si se selecciona que si:
-                        var data = {
-                            uci_boson_excepcionesbundle_data: {
-                                codigo: $scope.codigo,
-                                codigoAnterior: null,
-                                bundle: $scope.bundle,
-                                listTranslation: tabs,
-                                showprod: $scope.showprod,
-                                _token: $scope.token
-                            }
-                        };
+                            excepcionesAddSvc.InsertException(data)
+                                .success(function (response) {
+                                    toastr.success(response);
+                                    //location.reload();
+                                    $scope.codigo = null;
+                                    $scope.bundle = null;
+                                    $scope.showprod = null;
+                                    $scope.tabs = null;
+                                    tabs = [];
+                                    idiomasUsados = [];
+                                    tabcount = 0;
+                                    $scope.tabcount = 0;
+                                    $scope.tMensaje = null;
+                                    $scope.tDescrip = null;
+                                    $scope.tIdioma = null;
 
-                        excepcionesAddSvc.InsertException(data)
-                            .success(function (response) {
-                                toastr.success(response);
-                                //location.reload();
-                                $scope.codigo = null;
-                                $scope.bundle = null;
-                                $scope.showprod = null;
-                                $scope.tabs = null;
-                                tabs = [];
-                                idiomasUsados = [];
-                                tabcount = 0;
-                                $scope.tabcount = 0;
-                                $scope.tMensaje = null;
-                                $scope.tDescrip = null;
-                                $scope.tIdioma = null;
-
-                            })
-                            .error(function (response) {
-                                toastr.error(response);
-                            });
-                    }, function () {
-                        //en caso contrario:
-                        //toastr.info("Se ha cancelado la operación.");
+                                })
+                                .error(function (response) {
+                                    toastr.error(response);
+                                });
+                        } else {
+                            // alert("Cancelar");
+                        }
                     });
-
-
                 };
 
                 $scope.addTab = function (idioma, mensaje, descripcion) {
@@ -116,6 +117,22 @@ angular.module('app')
                     tabcount = tabcount - 1;
                     $scope.tabcount = tabcount;
                 };
+            }
+        ]
+    )
+    .controller('DialogController',
+        ['$scope', 'excepcionesAddSvc', 'toastr', '$mdDialog',
+            function ($scope, excepcionesAddSvc, toastr, $mdDialog) {
+                $scope.hide = function () {
+                    $mdDialog.hide();
+                };
+                $scope.cancel = function () {
+                    $mdDialog.cancel();
+                };
+                $scope.answer = function (answer) {
+                    $mdDialog.hide(answer);
+                };
+
             }
         ]
     );
