@@ -19,6 +19,19 @@ class ConfigController extends BackendController
 {
 
     /**
+     * Obtiene el token para que los formularios de angular trabajen.
+     *
+     * @Route("/excepciones/csrf_token", name="excepciones_csrf_form", options={"expose"=true})
+     * @Method("POST")
+     */
+    public function getCsrfTokenAction(Request $request){
+        $tokenId = $request->request->get('id_form');
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken($tokenId);
+        return new Response($token);
+    }
+
+    /**
      * Obtiene la dirección del fichero general de excepciones dado el nombre de un bundle
      * @param string $nbund
      * @return string
@@ -361,7 +374,7 @@ class ConfigController extends BackendController
         $extensionGeneral = $this->getExtensionGeneralByBundle($data->getBundle());
 
         if ($this->existException($dir, $extensionGeneral, $data->getCodigo())) {
-            return new Response("El código especificado está en uso por otra excepción", 500);
+            return new Response("El código especificado está en uso por otra excepción.", 500);
         }
 
         if ($extensionGeneral == "yml") {
@@ -411,7 +424,7 @@ class ConfigController extends BackendController
             file_put_contents($dirTraslation, $yaml_dump);
         }
 
-        return new Response();
+        return new Response("La excepción ha sido insertada satisfactoriamente.", 200);
     }
 
     /**
@@ -485,7 +498,7 @@ class ConfigController extends BackendController
                 }
             }
         }
-        return new Response();
+        return new Response("La excepción ha sido eliminada satisfactoriamente." , 200);
     }
 
     /**
@@ -508,7 +521,7 @@ class ConfigController extends BackendController
 
         if ($data->getCodigo() !== $data->getCodigoAnterior()) {
             if ($this->existException($dir, $extensionGeneral, $data->getCodigo())) {
-                return new Response("El nuevo código especificado está en uso por otra excepción", 500);
+                return new Response("El nuevo código especificado está en uso por otra excepción.", 500);
             }
         }
 
@@ -554,7 +567,6 @@ class ConfigController extends BackendController
                 $rootNode->asXML($dir);
             }
         }
-
         //ahora con los translations q son todos en yml por suerte (porq lo son no ?!)
         foreach ($listTranslation as $t) {
             $dirTraslation = $this->getDirTraslationByBundleIdioma($data->getBundle(), $t['idioma']);
@@ -565,7 +577,7 @@ class ConfigController extends BackendController
             file_put_contents($dirTraslation, $yaml_dump);
         }
 
-        return new Response();
+        return new Response("La excepción se ha modificado satisfactoriamente." , 200);
     }
 }
 

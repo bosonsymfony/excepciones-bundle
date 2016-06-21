@@ -36,7 +36,7 @@ angular.module('app')
                                     templateUrl: '{{ asset('bundles/excepciones/adminApp/views/gestionarExcepcion.html')|raw }}',
                                     controller: 'excepcionesGestionCtrl',
                                     data: {
-                                        title: 'Modificar Excepciones'
+                                        title: 'Modificar excepción'
                                     },
                                     resolve: load(
                                             [
@@ -64,7 +64,7 @@ angular.module('app')
                                     templateUrl: '{{ asset('bundles/excepciones/adminApp/views/eliminarExcepcion.html')|raw }}',
                                     controller: 'excepcionesGestionCtrl',
                                     data: {
-                                        title: 'Eliminar Excepciones'
+                                        title: 'Eliminar excepción'
                                     },
                                     resolve: load(
                                             [
@@ -92,7 +92,7 @@ angular.module('app')
                                     templateUrl: '{{ asset('bundles/excepciones/adminApp/views/adicionarExcepcion.html')|raw }}',
                                     controller: 'excepcionesAddCtrl',
                                     data: {
-                                        title: 'Adicionar Excepciones'
+                                        title: 'Adicionar excepción'
                                     },
                                     resolve: load(
                                             [
@@ -114,36 +114,7 @@ angular.module('app')
                                                 }
                                             ]
                                     )
-                                })
-                                .state('excepciones.homepage', {
-                                    url: '/home',
-                                    templateUrl: '{{ asset('bundles/excepciones/adminApp/views/home.html')|raw }}',
-                                    controller: 'excepcionesHomeCtrl',
-                                    data: {
-                                        title: 'Homepage'
-                                    },
-                                    resolve: load(
-                                            [
-                                                {
-                                                    name: 'hljs',
-                                                    files: [
-                                                        '{{ asset('bundles/backend/lib/highlight/highlight.pack.js')|raw }}',
-                                                        '{{ asset('bundles/backend/lib/highlight/styles/androidstudio.css')|raw }}',
-                                                        '{{ asset('bundles/backend/node_modules/angular-highlightjs/build/angular-highlightjs.js')|raw }}'
-                                                    ]
-                                                },
-                                                {
-                                                    files: [
-                                                        '{{ asset('bundles/excepciones/adminApp/services/excepcionesHomeSvc.js')|raw }}',
-                                                        '{{ asset('bundles/excepciones/adminApp/filters/excepcionesHomeFilter.js')|raw }}',
-                                                        '{{ asset('bundles/excepciones/adminApp/directives/excepcionesHomeDirective.js')|raw }}',
-                                                        '{{ asset('bundles/excepciones/adminApp/controllers/excepcionesHomeCtrl.js')|raw }}'
-                                                    ]
-                                                }
-                                            ]
-                                    )
                                 });
-
 
                         function load(src) {
                             return {

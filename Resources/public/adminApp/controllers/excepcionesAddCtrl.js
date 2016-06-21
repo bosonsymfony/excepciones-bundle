@@ -6,7 +6,14 @@ angular.module('app')
         ['$scope', 'excepcionesAddSvc', 'toastr', '$mdDialog',
             function ($scope, excepcionesAddSvc, toastr, $mdDialog) {
 
-                $scope.alphanumeric = '[a-zA-Z0-9]+';
+                excepcionesAddSvc.getCSRFtoken()
+                    .success(function (response) {
+                        $scope.token = response;
+                    })
+                    .error(function (response) {
+                    });
+
+                $scope.alphanumeric = '[a-zA-Z0-9 ]+';
                 $scope.sololetras = '[a-z A-Z]+';
                 $scope.numeric = '[0-9]+';
                 $scope.alphanumericMess = "Solo se permiten letras y números.";
@@ -53,13 +60,14 @@ angular.module('app')
                                 codigoAnterior: null,
                                 bundle: $scope.bundle,
                                 listTranslation: tabs,
-                                showprod: $scope.showprod
+                                showprod: $scope.showprod,
+                                _token: $scope.token
                             }
                         };
 
                         excepcionesAddSvc.InsertException(data)
                             .success(function (response) {
-                                toastr.success("La excepción ha sido insertada satisfactoriamente");
+                                toastr.success(response);
                                 //location.reload();
                                 $scope.codigo = null;
                                 $scope.bundle = null;
@@ -79,7 +87,7 @@ angular.module('app')
                             });
                     }, function () {
                         //en caso contrario:
-                        toastr.info("Se ha cancelado la operación");
+                        //toastr.info("Se ha cancelado la operación.");
                     });
 
 
@@ -88,7 +96,7 @@ angular.module('app')
                 $scope.addTab = function (idioma, mensaje, descripcion) {
                     var index = idiomasUsados.indexOf(idioma);
                     if (index >= 0) {
-                        toastr.error("Ya existe una traducción en el idioma especificado");
+                        toastr.error("Ya existe una traducción en el idioma especificado.");
                         return;
                     }
                     idiomasUsados.push(idioma);
@@ -96,6 +104,10 @@ angular.module('app')
                     $scope.tabs = tabs;
                     tabcount = tabcount + 1;
                     $scope.tabcount = tabcount;
+
+                    $scope.tIdioma = null;
+                    $scope.tMensaje = null;
+                    $scope.tDescrip = null;
                 };
                 $scope.removeTab = function (tab) {
                     var index = tabs.indexOf(tab);

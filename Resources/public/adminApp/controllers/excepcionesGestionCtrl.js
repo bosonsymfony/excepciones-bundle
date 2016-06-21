@@ -6,7 +6,14 @@ angular.module('app')
         ['$scope', 'excepcionesGestionSvc', 'toastr', '$mdDialog',
             function ($scope, excepcionesGestionSvc, toastr, $mdDialog) {
 
-                $scope.alphanumeric = '[a-zA-Z0-9]+';
+                excepcionesGestionSvc.getCSRFtoken()
+                    .success(function (response) {
+                        $scope.token = response;
+                    })
+                    .error(function (response) {
+                    });
+
+                $scope.alphanumeric = '[a-zA-Z0-9 ]+';
                 $scope.sololetras = '[a-z A-Z]+';
                 $scope.numeric = '[0-9]+';
                 $scope.alphanumericMess = "Solo se permiten letras y números.";
@@ -55,7 +62,7 @@ angular.module('app')
                         //si se selecciona que si:
                         excepcionesGestionSvc.deleteException($scope.bundle, $scope.excepcion)
                             .success(function (response) {
-                                toastr.success("La excepción ha sido eliminada satisfactoriamente");
+                                toastr.success(response);
                                 //borrando elementos sin recargar pagina
                                 $scope.codigo = null;
                                 $scope.bundle = null;
@@ -84,7 +91,7 @@ angular.module('app')
                             });
                     }, function () {
                         //en caso contrario:
-                        toastr.info("Se ha cancelado la operación");
+                        //toastr.info("Se ha cancelado la operación.");
                     });
                 };
 
@@ -135,7 +142,7 @@ angular.module('app')
                 $scope.addTab = function (idioma, mensaje, descripcion) {
                     var index = idiomasUsados.indexOf(idioma);
                     if (index >= 0) {
-                        toastr.error("Ya existe una traducción en el idioma especificado");
+                        toastr.error("Ya existe una traducción en el idioma especificado.");
                         return;
                     }
                     $scope.wasmodified = true;
@@ -144,6 +151,10 @@ angular.module('app')
                     $scope.tabs = tabs;
                     tabcount = tabcount + 1;
                     $scope.tabcount = tabcount;
+
+                    $scope.tIdioma = null;
+                    $scope.tMensaje = null;
+                    $scope.tDescrip = null;
                 };
 
                 $scope.removeTab = function (tab) {
@@ -164,19 +175,19 @@ angular.module('app')
                         .cancel('No');
                     $mdDialog.show(confirm).then(function () {
                         //si se selecciona que si:
-                        //ModifyException
                         var data = {
                             uci_boson_excepcionesbundle_data: {
                                 codigo: $scope.codigo,
                                 codigoAnterior: $scope.excepcion,
                                 bundle: $scope.bundle,
                                 listTranslation: tabs,
-                                showprod: $scope.showprod
+                                showprod: $scope.showprod,
+                                _token: $scope.token
                             }
                         };
                         excepcionesGestionSvc.ModifyException(data)
                             .success(function (response) {
-                                toastr.success("La excepción se ha modificado satisfactoriamente");
+                                toastr.success(response);
                                 //borrando elementos sin recargar pagina
                                 $scope.codigo = null;
                                 $scope.bundle = null;
@@ -205,7 +216,7 @@ angular.module('app')
                             });
                     }, function () {
                         //en caso contrario:
-                        toastr.info("Se ha cancelado la operación");
+                        //toastr.info("Se ha cancelado la operación.");
                     });
                 };
 

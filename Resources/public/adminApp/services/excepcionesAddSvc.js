@@ -22,8 +22,12 @@ angular.module('app')
                     return $http.post(Routing.generate('exception_insert_data',{},true),data);
                 }
 
+                function getCSRFtoken() {
+                    return $http.post(Routing.generate('excepciones_csrf_form', {}, true), {id_form: 'uci_boson_excepcionesbundle_data'});
+                }
 
                 return {
+                    getCSRFtoken: getCSRFtoken,
                     setMessage: setMessage,
                     getMessage: getMessage,
                     showCurrentInfo:showCurrentInfo,

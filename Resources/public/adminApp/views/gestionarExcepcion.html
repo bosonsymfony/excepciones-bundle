@@ -1,3 +1,9 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h2>Modificar excepción</h2>
+    </div>
+</md-toolbar>
+
 <md-content flex layout-padding>
     <br/>
 
@@ -20,7 +26,7 @@
 
         <div>
             <strong ng-show="excepcion && bundle">
-                Modificando excepción {{excepcion}} de {{bundle}}
+                Datos de {{excepcion}} en {{bundle}}:
             </strong>
             <br/>
 
@@ -68,8 +74,7 @@
                 </div>
             </md-input-container>
 
-            <md-button style="text-transform: none"
-                       class="add-tab md-primary md-raised" ng-click="addTab(tIdioma,tMensaje,tDescrip)"
+            <md-button class="add-tab md-primary md-raised" ng-click="addTab(tIdioma,tMensaje,tDescrip)"
                        ng-disabled="!tIdioma || !tMensaje || !tDescrip"
                        style="margin-right: 0;">Adicionar traducción
             </md-button>
@@ -90,8 +95,7 @@
                         </div>
                         <br/>
 
-                        <md-button style="text-transform: none"
-                                   class="md-primary md-raised" ng-click="removeTab( tab )"
+                        <md-button class="md-primary md-raised" ng-click="removeTab( tab )"
                                    ng-disabled="tabs.length <= 0">
                             Eliminar traducción
                         </md-button>
@@ -102,10 +106,9 @@
         </div>
 
         <div>
-            <md-button style="text-transform: none"
-                       ng-click="guardarCambios()" ng-disabled="!wasmodified ||tabcount < 1 || !codigo"
+            <md-button ng-click="guardarCambios()" ng-disabled="!wasmodified ||tabcount < 1 || !codigo"
                        class="md-raised md-primary">
-                Modificar excepción
+                Modificar
             </md-button>
         </div>
     </form>

@@ -1,3 +1,9 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h2>Adicionar excepción</h2>
+    </div>
+</md-toolbar>
+
 <md-content flex layout-padding class="md-padding">
 
     <form name="excepadd">
@@ -53,7 +59,7 @@
             </div>
         </md-input-container>
 
-        <md-button style="text-transform: none" class="add-tab md-primary md-raised"
+        <md-button class="add-tab md-primary md-raised"
                    ng-click="addTab(tIdioma,tMensaje,tDescrip)"
                    ng-disabled="!tIdioma || !tMensaje || !tDescrip" style="margin-right: 0;">Adicionar traducción
         </md-button>
@@ -74,7 +80,7 @@
                         <strong>Descripción: </strong> {{tab.descrip}} <br/>
                     </div>
                     <br/>
-                    <md-button style="text-transform: none" class="md-primary md-raised" ng-click="removeTab( tab )"
+                    <md-button class="md-primary md-raised" ng-click="removeTab( tab )"
                                ng-disabled="tabs.length <= 0">
                         Eliminar traducción
                     </md-button>
@@ -82,10 +88,9 @@
             </md-tab>
         </md-tabs>
 
-        <md-button style="text-transform: none"
-                   ng-click="AdicionarClick()" class="md-raised md-primary"
+        <md-button ng-click="AdicionarClick()" class="md-raised md-primary"
                    ng-disabled="tabcount < 1 || !bundle || !codigo">
-            Adicionar excepción
+            Adicionar
         </md-button>
 
     </form>
