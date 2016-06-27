@@ -20,6 +20,8 @@ angular.module('app')
                 $scope.sololetrasMess = "Solo se permiten letras.";
                 $scope.numericMess= "Solo se permiten números.";
 
+                $scope.mensDescrip = '[a-zA-Z0-9 ñáéíóúÁÉÍÓÚ]+';
+                $scope.mensDescripMess = "Solo se permiten letras y números.";
 
                 var tabcount = 0;
                 var tabs = [];

@@ -58,19 +58,19 @@
 
             <md-input-container>
                 <label for="mensaje">Mensaje</label>
-                <input type="text" id="mensaje" ng-model="tMensaje" name="mensaje" ng-pattern="alphanumeric">
+                <input type="text" id="mensaje" ng-model="tMensaje" name="mensaje" ng-pattern="mensDescrip">
 
                 <div ng-messages="gestExcep.mensaje.$error">
-                    <div ng-message="pattern">{{alphanumericMess}}</div>
+                    <div ng-message="pattern">{{mensDescripMess}}</div>
                 </div>
             </md-input-container>
 
             <md-input-container>
                 <label for="descripcion">Descripción</label>
-                <input type="text" id="descripcion" ng-model="tDescrip" name="descrip" ng-pattern="alphanumeric">
+                <input type="text" id="descripcion" ng-model="tDescrip" name="descrip" ng-pattern="mensDescrip">
 
                 <div ng-messages="gestExcep.descrip.$error">
-                    <div ng-message="pattern">{{alphanumericMess}}</div>
+                    <div ng-message="pattern">{{mensDescripMess}}</div>
                 </div>
             </md-input-container>
 
