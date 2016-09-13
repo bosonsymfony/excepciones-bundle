@@ -7,29 +7,29 @@ parameters:
 
 services:
     kernel.excepciones.listener:
-        class: %kernel.excepciones.listener.class%
+        class: "%kernel.excepciones.listener.class%"
         arguments: ["@service_container","%kernel.logs_dir%/"]
         tags:
             - {name: kernel.event_listener, event: kernel.exception, method: onKernelException}
 
     localException:
-            class: %uci.excepciones.class%
+            class: "%uci.excepciones.class%"
             arguments: ["@service_container"]
 
     localexception:
-        class: %uci.excepciones.class%
+        class: "%uci.excepciones.class%"
         arguments: ["@service_container"]
 
     exception:
-        class: %uci.excepciones.class%
+        class: "%uci.excepciones.class%"
         arguments: ["@service_container"]
 
     excepciones.twig.parameter_admin_expose_extension:
         class: UCI\Boson\ExcepcionesBundle\Twig\ParameterAdminExposeExtension
-        arguments: [%excepciones%]
+        arguments: ["%excepciones%"]
         tags:
             - { name: twig.extension }
 
     twig.controller.exception:
-        class: %twig.controller.exception.class%
-        arguments: [@twig,%kernel.debug%,@service_container]
+        class: "%twig.controller.exception.class%"
+        arguments: ["@twig","%kernel.debug%","@service_container"]
