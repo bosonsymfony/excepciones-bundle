@@ -33,7 +33,13 @@ angular.module('app')
                 $scope.wasmodified = false;
 
                 $scope.modif = function () {
-                    $scope.wasmodified = true;
+                    if (showprod_orig != $scope.showprod ||
+                        excepcionCode_orig != $scope.codigo){
+
+                        $scope.wasmodified = true;
+                    }else {
+                        $scope.wasmodified = false;
+                    }
                 };
 
                 $scope.idiomas = [
@@ -102,6 +108,9 @@ angular.module('app')
                     });
                 };
 
+                var excepcionCode_orig;
+                var showprod_orig;
+
                 $scope.loadTabs = function () {
                     $scope.tabs = [];
                     $scope.modificable = true;
@@ -117,6 +126,7 @@ angular.module('app')
                             }
 
                             $scope.codigo = $scope.excepcion;
+                            excepcionCode_orig = $scope.codigo;
                             tabcount = $scope.tabs.length;
                             $scope.tabcount = tabcount;
                             excepcionesGestionSvc.IsShowProd($scope.bundle, $scope.excepcion)
@@ -128,6 +138,7 @@ angular.module('app')
                                 .error(function (response) {
                                     toastr.error(response);
                                 });
+                            showprod_orig = $scope.showprod;
                         })
                         .error(function (response) {
                             toastr.error(response);
@@ -155,6 +166,7 @@ angular.module('app')
                     $scope.wasmodified = true;
                     idiomasUsados.push(idioma);
                     tabs.push({idioma: idioma, mensaje: mensaje, descrip: descripcion});
+
                     $scope.tabs = tabs;
                     tabcount = tabcount + 1;
                     $scope.tabcount = tabcount;
@@ -162,6 +174,7 @@ angular.module('app')
                     $scope.tIdioma = null;
                     $scope.tMensaje = null;
                     $scope.tDescrip = null;
+
                 };
 
                 $scope.removeTab = function (tab) {
